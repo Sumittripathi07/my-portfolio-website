@@ -1,0 +1,25 @@
+---
+import { getCollection } from 'astro:content';
+import Base from '../../layouts/Base.astro';
+
+const posts = (await getCollection('blog')).sort((a, b) => b.data.date.valueOf() - a.data.date.valueOf());
+---
+
+<Base title="Blog — Sumit Tripathi">
+  <main class="blog">
+    <h1>Blog</h1>
+    <ul class="post-list">
+      {
+        posts.map((post) => (
+          <li data-reveal>
+            <a href={`/blog/${post.id}`}>
+              <h2>{post.data.title}</h2>
+              <time datetime={post.data.date.toISOString()}>{post.data.date.toDateString()}</time>
+              <p>{post.data.description}</p>
+            </a>
+          </li>
+        ))
+      }
+    </ul>
+  </main>
+</Base>

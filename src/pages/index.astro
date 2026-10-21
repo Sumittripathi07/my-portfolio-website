@@ -1,16 +1,240 @@
 ---
+import { getCollection } from 'astro:content';
+import Base from '../layouts/Base.astro';
+
+const socials = [
+  { label: 'LinkedIn', href: 'https://www.linkedin.com/in/sumittripathi07/' },
+  { label: 'GitHub', href: 'https://github.com/Sumittripathi07' },
+  { label: 'X / Twitter', href: 'https://twitter.com/iamSumit076' },
+  { label: 'Instagram', href: 'https://www.instagram.com/sumittripathi07' },
+  { label: 'YouTube', href: 'https://www.youtube.com/channel/UCGt6YxqAddqOfNOKyrYB9Ug' },
+];
+
+const email = 'sumit.tpt07@gmail.com';
+
+const skills = [
+  'React', 'TypeScript', 'Next.js', 'Node.js', 'NestJS', 'Express', 'MongoDB', 'Redis',
+  'AWS', 'BullMQ', 'Tailwind', 'Nginx', 'OAuth', 'Python', 'Git', 'shadcn/ui',
+];
+
+const stats = [
+  { value: 2, suffix: '+', label: 'years building production software' },
+  { value: 41, suffix: '', label: 'public repos on GitHub' },
+  { value: 6, suffix: '', label: 'certifications — React, Node, MongoDB & more' },
+  { value: 2, suffix: '', label: 'internships, one with a London team' },
+];
+
+const experience = [
+  {
+    period: 'Jan 2025 — Present',
+    role: 'Software Engineer',
+    place: 'Edmission CRM India Pvt. Ltd. · Mumbai',
+    points: [
+      'Designed event-driven workflows with BullMQ — a bulk import/export system (S3 + ExcelJS) that handles millions of records.',
+      'Integrated the WhatsApp Business API and Facebook Embedded Signup for multi-channel messaging.',
+      'Built API-key and OAuth authentication with role-based access control across the platform.',
+      'Added Redis caching on high-traffic endpoints; deployed on AWS EC2 with PM2 and Nginx, plus S3 and SES.',
+      'Shipped responsive UI in React, TypeScript and Tailwind with a 10–20 person product, design and QA team.',
+    ],
+  },
+  {
+    period: 'Aug 2024',
+    role: 'Web Developer Intern',
+    place: 'Dragonfly Business Solution · London, UK (Remote)',
+    points: ['Built responsive websites alongside senior developers in an Agile, Git-based workflow.'],
+  },
+  {
+    period: 'Oct 2023',
+    role: 'Web Development Intern',
+    place: 'OctaNet Services',
+    points: ['First internship — building web pages for real users.'],
+  },
+];
+
+const education = [
+  { name: 'M.Sc. Computer Science', by: 'University of Mumbai', year: 'Expected 2027' },
+  { name: 'B.Sc. Computer Science', by: 'Smt. CHM College, University of Mumbai', year: '2024' },
+];
+
+const certs = [
+  { name: 'Building Modern UIs with React Router v6', by: 'LinkedIn', year: 2024 },
+  { name: 'Building RESTful APIs with Node.js and Express', by: 'LinkedIn', year: 2024 },
+  { name: 'Using MongoDB with Node.js', by: 'MongoDB', year: 2024 },
+  { name: 'Version Control using Git and GitHub', by: 'Coursera', year: 2023 },
+  { name: 'Web Development Internship', by: 'OctaNet Services', year: 2023 },
+  { name: 'JavaScript (Basic)', by: 'HackerRank', year: 2023 },
+];
+
+const projects = (await getCollection('projects')).sort((a, b) => a.data.order - b.data.order);
 ---
 
-<html lang="en">
-	<head>
-		<meta charset="utf-8" />
-		<link rel="icon" type="image/svg+xml" href="/favicon.svg" />
-		<link rel="icon" href="/favicon.ico" />
-		<meta name="viewport" content="width=device-width" />
-		<meta name="generator" content={Astro.generator} />
-		<title>Astro</title>
-	</head>
-	<body>
-		<h1>Astro</h1>
-	</body>
-</html>
+<Base title="Sumit Tripathi — Software Engineer" intro>
+  <main>
+    <section class="hero">
+      <canvas class="hero-canvas" aria-hidden="true"></canvas>
+      <div class="hero-inner">
+        <p class="label" data-hero-fade><span class="dot"></span> Software Engineer · Mumbai, India</p>
+        <h1 class="hero-title">
+          <span>Sumit</span>
+          <span class="outline">Tripathi</span>
+        </h1>
+        <div class="hero-bottom">
+          <p class="hero-sub" data-hero-fade>I like systems that don't break when the data gets big.</p>
+          <div class="hero-ctas" data-hero-fade>
+            <a href="/#work" class="btn btn-solid" data-magnetic>See my work</a>
+            <a href="/#contact" class="btn" data-magnetic>Get in touch</a>
+          </div>
+        </div>
+      </div>
+      <p class="scroll-cue" data-hero-fade>Scroll</p>
+    </section>
+
+    <section class="marquee-section" aria-label="Skills">
+      {
+        [0, 1].map((row) => (
+          <div class="marquee">
+            <div class="marquee-track">
+              {[...skills, ...skills].map((s, i) => (
+                <span class={(i + row) % 3 === 0 ? 'marquee-item accent' : 'marquee-item'}>
+                  {s} <i>✦</i>
+                </span>
+              ))}
+            </div>
+          </div>
+        ))
+      }
+    </section>
+
+    <section class="about" id="about">
+      <p class="label">(01) About</p>
+      <p class="about-text">
+        I'm Sumit — a full-stack developer from Mumbai. I build things end to end: React front-ends, Node and NestJS back-ends, and the
+        queues, caches and cloud setup that keep them fast when the data runs into millions of rows.
+      </p>
+    </section>
+
+    <section class="stats" aria-label="Numbers">
+      {
+        stats.map((s) => (
+          <div class="stat" data-reveal>
+            <p class="stat-value">
+              <span data-count={s.value}>{s.value}</span>
+              {s.suffix}
+            </p>
+            <p class="stat-label">{s.label}</p>
+          </div>
+        ))
+      }
+    </section>
+
+    <section class="experience" id="experience">
+      <p class="label">(02) Journey</p>
+      <h2 class="section-title" data-split>Where I've been.</h2>
+      <div class="timeline">
+        <span class="timeline-line" aria-hidden="true"></span>
+        <ol>
+          {
+            experience.map((e) => (
+              <li class="timeline-item">
+                <p class="period">{e.period}</p>
+                <h3>{e.role}</h3>
+                <p class="place">{e.place}</p>
+                <ul class="points">
+                  {e.points.map((pt) => (
+                    <li>{pt}</li>
+                  ))}
+                </ul>
+              </li>
+            ))
+          }
+        </ol>
+      </div>
+    </section>
+
+    <section class="work" id="work">
+      <div class="work-head">
+        <p class="label">(03) Projects</p>
+        <h2 class="section-title">Things I've built.</h2>
+      </div>
+      <div class="projects-track">
+        {
+          projects.map(({ data }, i) => (
+            <article class="project-card">
+              <div class="project-top">
+                <span class="project-num">{String(i + 1).padStart(2, '0')}</span>
+                {data.year && <span class="project-year">{data.year}</span>}
+              </div>
+              <h3>{data.title}</h3>
+              <p>{data.summary}</p>
+              <ul class="tags">
+                {data.tech.map((t) => (
+                  <li>{t}</li>
+                ))}
+              </ul>
+              <p class="project-links">
+                {data.link && (
+                  <a href={data.link} target="_blank" rel="noopener">
+                    Live ↗
+                  </a>
+                )}
+                {data.repo && (
+                  <a href={data.repo} target="_blank" rel="noopener">
+                    Code ↗
+                  </a>
+                )}
+              </p>
+            </article>
+          ))
+        }
+        <a class="project-card project-more" href="https://github.com/Sumittripathi07?tab=repositories" target="_blank" rel="noopener">
+          <h3>More on GitHub ↗</h3>
+        </a>
+      </div>
+    </section>
+
+    <section class="certs">
+      <p class="label">(04) Education</p>
+      <ul class="cert-list" data-stagger>
+        {
+          education.map((e) => (
+            <li>
+              <span class="cert-name">{e.name}</span>
+              <span class="cert-by">{e.by}</span>
+              <span class="cert-year">{e.year}</span>
+            </li>
+          ))
+        }
+      </ul>
+      <p class="label certs-label">(05) Certifications</p>
+      <ul class="cert-list" data-stagger>
+        {
+          certs.map((c) => (
+            <li>
+              <span class="cert-name">{c.name}</span>
+              <span class="cert-by">{c.by}</span>
+              <span class="cert-year">{c.year}</span>
+            </li>
+          ))
+        }
+      </ul>
+    </section>
+
+    <section class="contact" id="contact">
+      <p class="label">(06) Contact</p>
+      <h2 class="contact-title">Let's build something.</h2>
+      <p class="contact-sub" data-reveal>Open to interesting problems, collaborations, and good conversations about data that won't sit still.</p>
+      <a class="btn btn-solid btn-big" href={`mailto:${email}`} data-magnetic>{email}</a>
+      <ul class="socials" data-stagger>
+        {
+          socials.map((s) => (
+            <li>
+              <a href={s.href} target="_blank" rel="noopener">
+                {s.label}
+              </a>
+            </li>
+          ))
+        }
+      </ul>
+    </section>
+  </main>
+</Base>

@@ -1,0 +1,72 @@
+---
+import '../styles/global.css';
+
+interface Props {
+  title: string;
+  description?: string;
+  /** Show the loading-counter intro (home page only). */
+  intro?: boolean;
+}
+
+const {
+  title,
+  description = "Sumit Tripathi — full-stack developer in Mumbai. React, Node.js, NestJS, MongoDB and AWS.",
+  intro = false,
+} = Astro.props;
+---
+
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="description" content={description} />
+    <meta property="og:title" content={title} />
+    <meta property="og:description" content={description} />
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      rel="stylesheet"
+      href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=JetBrains+Mono:wght@400;500&family=Syne:wght@600;700;800&display=swap"
+    />
+    <title>{title}</title>
+    <script is:inline>document.documentElement.classList.add('js');</script>
+  </head>
+  <body>
+    {
+      intro && (
+        <div class="loader" aria-hidden="true">
+          <span class="loader-label">Sumit Tripathi — Portfolio</span>
+          <span class="loader-count">000</span>
+        </div>
+      )
+    }
+    <div class="cursor" aria-hidden="true"></div>
+    <div class="cursor-ring" aria-hidden="true"></div>
+    <div class="progress" aria-hidden="true"></div>
+
+    <nav class="nav">
+      <a href="/" class="logo" data-magnetic>ST<span>.</span></a>
+      <ul>
+        <li><a href="/#about">About</a></li>
+        <li><a href="/#work">Work</a></li>
+        <li><a href="/blog">Blog</a></li>
+        <li><a href="/#contact" class="nav-cta">Contact</a></li>
+      </ul>
+    </nav>
+
+    <div id="smooth-wrapper">
+      <div id="smooth-content">
+        <slot />
+        <footer class="footer">
+          <span>© {new Date().getFullYear()} Sumit Tripathi</span>
+          <span>Built with Astro + GSAP · Mumbai, India</span>
+        </footer>
+      </div>
+    </div>
+
+    <script>
+      import '../scripts/animations';
+    </script>
+  </body>
+</html>
